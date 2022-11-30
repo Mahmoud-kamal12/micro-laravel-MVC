@@ -4,6 +4,7 @@ use \Lib\Application;
 use \Lib\Http\Request;
 use \Lib\Support\Hash;
 use \Lib\Support\Auth;
+use \Lib\Http\Response;
 
 if (!function_exists('env')){
     function env($key , $default = ''){
@@ -73,6 +74,14 @@ if (!function_exists('back')) {
         return (new Response)->back();
     }
 }
+
+if (!function_exists('response')) {
+    function response()
+    {
+        return new Response();
+    }
+}
+
 if (!function_exists('request')) {
     function request($key = null)
     {

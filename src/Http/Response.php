@@ -2,6 +2,8 @@
 
 namespace Lib\Http;
 
+use JetBrains\PhpStorm\NoReturn;
+
 class Response
 {
 
@@ -17,4 +19,9 @@ class Response
         return $this;
     }
 
+    public function json(array $data){
+        header("Content-Type: application/json");
+        echo json_encode($data);
+        exit();
+    }
 }

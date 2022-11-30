@@ -18,6 +18,9 @@ class Request
 
     public function all()
     {
+        if($this->method() !== 'get'){
+            return $json = (array)json_decode(file_get_contents('php://input'));
+        }
         return $_REQUEST;
     }
 

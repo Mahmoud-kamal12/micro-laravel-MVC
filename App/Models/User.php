@@ -12,7 +12,7 @@ class User extends Eloquent
     ];
 
     protected $hidden = [
-        'password', 'remember_token',
+        'password', 'remember_token', 'updated_at','created_at'
     ];
 
 }

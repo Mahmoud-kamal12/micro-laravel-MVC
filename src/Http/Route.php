@@ -86,31 +86,31 @@ class Route{
         self::$middlewares['get'][$route] = Arr::flatten($middleware);
     }
 
-    public static function post($route , $action , $middleware= null)
+    public static function post($route , $action , $middleware= [])
     {
         self::$routes['post'][$route] = $action;
         self::$middlewares['post'][$route] = Arr::flatten($middleware);
 
     }
 
-    public static function delete($route , $action , $middleware= null)
+    public static function delete($route , $action , $middleware= [])
     {
         self::$routes['delete'][$route] = $action;
         self::$middlewares['delete'][$route] = Arr::flatten($middleware);
 
     }
 
-    public static function put($route , $action , $middleware= null)
+    public static function put($route , $action , $middleware= [])
     {
         self::$routes['put'][$route] = $action;
         self::$middlewares['put'][$route] = Arr::flatten($middleware);
 
     }
 
-    private static  function getMiddleware($route): array
+    private static  function getMiddleware($route , $method): array
     {
         $temp = [];
-        $middlewares = self::$middlewares['get'][$route] ?? [];
+        $middlewares = self::$middlewares[$method][$route] ?? [];
         foreach( $middlewares as  $middleware){
             $middleware = $middleware ? config('app.middlewares')[$middleware] ?? false : false;
             $key = $middleware ? new $middleware instanceof BaseMiddleware ? $middleware : false: false;
@@ -126,7 +126,7 @@ class Route{
         [$path ,$params]= self::matchRoute(self::$routes[$method] , $path);
 
         $action = self::$routes[$method][$path] ?? false;
-        [ $check , $middlewares] = self::getMiddleware($path);
+        [ $check , $middlewares] = self::getMiddleware($path , $method);
         if (!$check){
             View::makeError('404');
         }

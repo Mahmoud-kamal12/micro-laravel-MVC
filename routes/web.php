@@ -1,36 +1,27 @@
 <?php
 use \Lib\Http\Route;
 use \App\Controllers\HomeController;
-
-Route::get('users', function () {
-    return dd('index');
-});
-
-Route::post('users/create', function () {
-    return dd('users/create');
-} , ['auth' , 'admin']);
-
-//Route::get('users/{test}', function ($id) {
-//    return dd($id);
-//});
-
-Route::get('users/{users}/edit', function ($id) {
-    return dd("users/{$id}/edit");
-});
+use \App\Controllers\UserController;
+use \App\Controllers\Auth\AuthController;
 
 Route::get('/' , [HomeController::class , 'index']);
-//
-//Route::get('test/Mahmoud/home/{id}/user', function () {
-//    return dd('/home/{id}/user');
-//});
-//Route::get('test/Mahmoud/home/user/{id?}', function () {
-//    return dd('/home/user/{id?}');
-//});
-//Route::get('test/Mahmoud/home/user/{name?}/{id?}', function () {
-//    return dd('/home/user/{name?}/{id?}');
-//});
-//Route::get('test/Mahmoud/home/user/{name}/{id?}', function () {
-//    return dd('/home/user/{name}/{id?}');
-//});
-//
-//
+
+
+Route::get('/users', [UserController::class , 'index']);
+
+Route::get('users/create', [UserController::class , 'create'] , ['auth' , 'admin']);
+
+Route::post('users', [UserController::class , 'store'] , ['auth']);
+
+Route::get('users/{id}/edit', [UserController::class , 'edit']);
+
+Route::put('users/{id}', [UserController::class , 'update']);
+
+Route::delete('users/{id}', [UserController::class , 'destroy']);
+
+Route::post('auth/login', [AuthController::class , 'login']);
+
+
+
+
+
