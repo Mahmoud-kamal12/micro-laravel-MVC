@@ -20,16 +20,6 @@ class Route{
         $this->response = $response;
     }
 
-    public static  function addToIndex($temp ,  $i , $index , $arry , $number){
-        if($i == $index)
-            $temp[$i] = $number;
-        elseif($i >= $number)
-            $temp[$i] = $arry[$i -1];
-        else
-            $temp[$i] = $arry[$i];
-        $i++;
-        return ($i <= count($arry)) ? self::addToIndex($temp, $i, $index, $arry, $number) : $temp;
-    }
 
     function matchRoute($routes , $path): bool|array
     {
@@ -58,7 +48,7 @@ class Route{
 
                 if (count($arrayKey) === count($arrayPath) - $num){
                     foreach ($indexes as $index){
-                        $arrayPath = self::addToIndex([] , 0 , $index , $arrayPath , '?');
+                        $arrayPath = Arr::addToIndex([] , 0 , $index , $arrayPath , '?');
                     }
                 }
 

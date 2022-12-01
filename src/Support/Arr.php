@@ -6,6 +6,19 @@ use ArrayAccess;
 
 class Arr
 {
+
+    public static  function addToIndex($temp ,  $i , $index , $array , $number){
+        if($i == $index)
+            $temp[$i] = $number;
+        elseif($i >= $number)
+            $temp[$i] = $array[$i -1];
+        else
+            $temp[$i] = $array[$i];
+        $i++;
+        return ($i <= count($array)) ? self::addToIndex($temp, $i, $index, $array, $number) : $temp;
+    }
+
+
     public static function only($array, $keys)
     {
         return array_intersect_key($array, array_flip((array) $keys));
